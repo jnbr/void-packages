@@ -1,0 +1,12 @@
+# Template file for 'mx6cuboxi-base'
+pkgname=mx6cuboxi-base
+version=1.0
+revision=1
+build_style=meta
+homepage="https://www.voidlinux.org"
+short_desc="Void Linux mx6cuboxi platform package"
+maintainer="Johannes <johannes.brechtmann@gmail.com>"
+license="Public Domain"
+
+only_for_archs="armv7l armv7l-musl"
+depends="base-system mx6cuboxi-uboot linux"
