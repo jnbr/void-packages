@@ -1,0 +1,34 @@
+# Template file for 'odroid-u2-uboot'
+pkgname=mx6cuboxi-uboot
+version=2019.01
+revision=1
+wrksrc="u-boot-${version}"
+hostmakedepends="bison flex"
+short_desc="mx6cuboxi uboot module"
+maintainer="Johannes <johannes.brechtmann@gmail.com>"
+license="GPL-2.0-or-later"
+homepage="https://github.com/u-boot/u-boot"
+distfiles="https://github.com/u-boot/u-boot/archive/v${version}.tar.gz"
+checksum=da8191f6d8fa317fca20dee2fcc1db0d16aaafeca7d585b880a0062dccbde7ce
+
+only_for_archs="armv7l armv7l-musl"
+
+do_configure() {
+	make mrproper
+	make mx6cuboxi_config
+}
+
+do_build() {
+	unset CFLAGS CXXFLAGS LDFLAGS
+
+	if [ "$CROSS_BUILD" ]; then
+		make ARCH=arm CROSS_COMPILE=${XBPS_CROSS_TRIPLET}-
+	else
+		make ARCH=arm
+	fi
+}
+
+do_install() {
+	vinstall SPL 644 boot
+	vinstall u-boot.img 644 boot
+}
